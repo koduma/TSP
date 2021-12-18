@@ -110,7 +110,7 @@ node BEAM_SEARCH(node travel) {
 				cand.pos=0;
 				cand.t=i;
 				cand.visited[0]=true;
-				cand.hash=calc_hash(cand);
+				//cand.hash=calc_hash(cand);
 				fff[k] = cand;
 			}
 			else{
@@ -123,7 +123,7 @@ node BEAM_SEARCH(node travel) {
 					cand.pos=j;
 					cand.t=i;
 					cand.visited[j]=true;
-					cand.hash=calc_hash(cand);
+					//cand.hash=calc_hash(cand);
 					fff[(CITY * k) + j] = cand;
 						//part4 += omp_get_wtime() - st;
 					}
@@ -165,11 +165,12 @@ node BEAM_SEARCH(node travel) {
 				printf("call=%d\n",call);
 				return temp;
 			}
-			if(!checkNodeList[temp.hash]){
-				checkNodeList[temp.hash]=true;
+			if(temp.score>=5337){break;}
+			//if(!checkNodeList[temp.hash]){
+				//checkNodeList[temp.hash]=true;
 				dque.push_back(temp);
 				push_node++;
-				}
+				//}
 			}
 	}
 
@@ -207,7 +208,7 @@ node BEAM_SEARCH2(node travel) {
 				cand.pos=0;
 				cand.t=i;
 				cand.visited[0]=true;
-				cand.hash=calc_hash(cand);
+				//cand.hash=calc_hash(cand);
 				cand.score2=cand.score;
 				ff[k] = cand;
 			}
@@ -221,7 +222,7 @@ node BEAM_SEARCH2(node travel) {
 					cand.pos=j;
 					cand.t=i;
 					cand.visited[j]=true;
-					cand.hash=calc_hash(cand);
+					//cand.hash=calc_hash(cand);
 					node bbb=BEAM_SEARCH(cand);
 					cand.score2=bbb.score;
 					ff[(CITY * k) + j] = cand;
@@ -263,11 +264,11 @@ node BEAM_SEARCH2(node travel) {
 			if (i==CITY) {//コンボ数が増えたらその手を記憶する
 				return temp;
 			}
-			if(!checkNodeList[temp.hash]){
-				checkNodeList[temp.hash]=true;
+			//if(!checkNodeList[temp.hash]){
+				//checkNodeList[temp.hash]=true;
 				dque.push_back(temp);
 				push_node++;
-				}
+				//}
 			}
 	}
 
