@@ -1,9 +1,8 @@
 /*
 
-g++ -O2 -std=c++11 -fopenmp -mbmi2 -lpthread -ldl TSP.cpp loguru.cpp -o TSP -mcmodel=large
+g++ -O2 -std=c++11 -fopenmp TSP.cpp -o TSP -mcmodel=large
 
 */
-
 #pragma warning(disable:4710)
 #pragma warning(disable:4711)
 #pragma warning(disable:4820)
@@ -31,16 +30,16 @@ g++ -O2 -std=c++11 -fopenmp -mbmi2 -lpthread -ldl TSP.cpp loguru.cpp -o TSP -mcm
 #include <fstream>
 #include <functional>
 #include <unordered_map>
-#include <immintrin.h>
-#include "hash_map.hpp"
+//#include <immintrin.h>
+//#include "hash_map.hpp"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
 
 using namespace std;
 
-#define BEAM_WIDTH 1000000
-#define BEAM_WIDTH2 2
+#define BEAM_WIDTH 1000
+#define BEAM_WIDTH2 20
 #define DIR 100
 #define CITY 100
 #define NODE_SIZE BEAM_WIDTH*DIR
@@ -94,7 +93,7 @@ node BEAM_SEARCH(node travel) {
 	vector<node>dque;
 
 	dque.push_back(travel);
-	emilib::HashMap<ull, bool> checkNodeList;
+	//emilib::HashMap<ull, bool> checkNodeList;
 
 	//2手目以降をビームサーチで探索
 	for (int i = (travel.t)+1; i <= CITY; i++) {
@@ -134,7 +133,7 @@ node BEAM_SEARCH(node travel) {
 			}
 		}
 		}
-		printf("depth=%d/%d\n",i,CITY);
+		//printf("depth=%d/%d\n",i,CITY);
 		dque.clear();
 		vector<pair<int,int> >vec;
 		int ks2 = 0;
@@ -165,7 +164,7 @@ node BEAM_SEARCH(node travel) {
 				printf("call=%d\n",call);
 				return temp;
 			}
-			if(temp.score>=5337){break;}
+			//if(temp.score>=5337){break;}
 			//if(!checkNodeList[temp.hash]){
 				//checkNodeList[temp.hash]=true;
 				dque.push_back(temp);
@@ -179,21 +178,19 @@ node BEAM_SEARCH(node travel) {
 node BEAM_SEARCH2(node travel) {
 
 	/*
-
 	char route[CITY+1];//スワイプ移動座標
   int pos;
 	int t;
 	int score;//評価値
 	ull hash;//盤面のハッシュ値
   bool visited[CITY]={0};
-
 	*/
 
 
 	vector<node>dque;
 
 	dque.push_back(travel);
-	emilib::HashMap<ull, bool> checkNodeList;
+	//emilib::HashMap<ull, bool> checkNodeList;
 
 	//2手目以降をビームサーチで探索
 	for (int i = (travel.t)+1; i <= CITY; i++) {
@@ -305,7 +302,7 @@ int main(){
 	travel.visited[0]=true;
 	travel.hash=calc_hash(travel);
 
-	ans=BEAM_SEARCH(travel);
+	ans=BEAM_SEARCH2(travel);
 
 	cout<<"ans.score="<<ans.score<<endl;
 
@@ -335,14 +332,12 @@ int main(){
 	printf("check_score=%d\n",check_score);
 
 	/*
-
 	char route[CITY+1];//スワイプ移動座標
 	int pos;
 	int t;
 	int score;//評価値
 	ull hash;//盤面のハッシュ値
 	bool visited[CITY]={0};
-
 	*/
 
 
