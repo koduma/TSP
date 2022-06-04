@@ -306,7 +306,7 @@ int main(){
 
 	cout<<"ans.score="<<ans.score<<endl;
 
-	int check[100]={0};
+	int check[CITY]={0};
 
 	int check_score=0;
 
