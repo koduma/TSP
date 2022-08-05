@@ -54,12 +54,12 @@ int call=0;
 
 struct node {//どういう手かの構造体
 	char route[CITY+1];//スワイプ移動座標
-  int pos;
+	int pos;
 	int t;
 	int score;//評価値
 	int score2;
 	ull hash;//盤面のハッシュ値
-  bool visited[CITY]={0};
+	bool visited[CITY]={0};
 	node() {//初期化
 		this->score = 0;
 	}
@@ -179,11 +179,11 @@ node BEAM_SEARCH2(node travel) {
 
 	/*
 	char route[CITY+1];//スワイプ移動座標
-  int pos;
+	int pos;
 	int t;
 	int score;//評価値
 	ull hash;//盤面のハッシュ値
-  bool visited[CITY]={0};
+	bool visited[CITY]={0};
 	*/
 
 
