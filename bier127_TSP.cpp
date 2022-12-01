@@ -1,5 +1,5 @@
 /*
-g++ -O2 -std=c++11 -fopenmp bier127_TSP.cpp -o bier127_TSP
+g++ -O3 -std=c++11 -fopenmp bier127_TSP.cpp -o bier127_TSP
 */
 #pragma warning(disable:4710)
 #pragma warning(disable:4711)
@@ -96,8 +96,8 @@ node solve(node travel) {
 
 	dque.push_back(travel);
 	//emilib::HashMap<ull, bool> checkNodeList;
-    
-    int ttt=(travel.t)+1;
+	
+	int ttt=(travel.t)+1;
 
 	//2手目以降をビームサーチで探索
 	for (int i = (travel.t)+1; i <= CITY; i++) {
@@ -165,11 +165,11 @@ node solve(node travel) {
 			node temp = fff[v];
 			if (i==CITY) {//コンボ数が増えたらその手を記憶する
 				call++;
-        if(call%10==0){
+				if(call%10==0){
 				//printf("call=%d/%d\n",call,CITY+(CITY*(CITY-1)/2)*BEAM_WIDTH2*AVG);
-        }
+				}
 				travel=temp;
-        goto SA;
+				goto SA;
 			}
 			//if(temp.score>=5337){break;}
 			//if(!checkNodeList[temp.hash]){
@@ -265,15 +265,13 @@ node solve(node travel) {
     }
         
     }
-
-	return travel;
+	
+return travel;
 }
 void check_travel(node ans){
-    
-  int i;
-    
-  cout<<"ans.score="<<ans.score<<endl;
-
+	
+	int i;
+	cout<<"ans.score="<<ans.score<<endl;
 	int check[CITY]={0};
 
 	double check_score=0;
@@ -302,31 +300,29 @@ void check_travel(node ans){
 }
 
 int main(){  
-      
-
-  FILE *fp=fopen("bier127.txt","r");
-
-  int i,j,k;
-    
-  double u[CITY][2];
-
-  for(i=0;i<CITY;i++){
-      int n;
-      fscanf(fp,"%d %lf %lf",&n,&u[i][0],&u[i][1]);
-  }
-  for(i=0;i<CITY;i++){
-  for(j=0;j<CITY;j++){
-  kyori[i][j]=(int)ceil(sqrt((u[i][0]-u[j][0])*(u[i][0]-u[j][0])+(u[i][1]-u[j][1])*(u[i][1]-u[j][1])));
-  checksum[i][j]=sqrt((u[i][0]-u[j][0])*(u[i][0]-u[j][0])+(u[i][1]-u[j][1])*(u[i][1]-u[j][1]));    
-  }
-  }
-    
-  for(i=0;i<CITY;i++){
-  for(j=0;j<CITY;j++){
-  zoblish_field[i][j]=xor128();
-  }
-  }
-
+	
+	FILE *fp=fopen("bier127.txt","r");
+	
+	int i,j,k;
+	double u[CITY][2];
+	for(i=0;i<CITY;i++){
+	int n;
+	fscanf(fp,"%d %lf %lf",&n,&u[i][0],&u[i][1]);
+	}
+	
+	for(i=0;i<CITY;i++){
+	for(j=0;j<CITY;j++){
+	kyori[i][j]=(int)ceil(sqrt((u[i][0]-u[j][0])*(u[i][0]-u[j][0])+(u[i][1]-u[j][1])*(u[i][1]-u[j][1])));
+	checksum[i][j]=sqrt((u[i][0]-u[j][0])*(u[i][0]-u[j][0])+(u[i][1]-u[j][1])*(u[i][1]-u[j][1]));
+	}
+	}
+	
+	for(i=0;i<CITY;i++){
+	for(j=0;j<CITY;j++){
+	zoblish_field[i][j]=xor128();
+	}
+	}
+	
 	node travel,ans;
 
 	travel.route[0]=0;
@@ -339,12 +335,11 @@ int main(){
 	travel.visited[0]=true;
 
 	solve(travel);
-  check_travel(no1);
-
-
-  cin>>i;
-  cin>>j;
-  cin>>k;
+	check_travel(no1);
+	
+	cin>>i;
+	cin>>j;
+	cin>>k;
 
   return 0;
 }
