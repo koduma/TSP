@@ -1,8 +1,3 @@
-/*
-
-g++ -O2 -std=c++11 -fopenmp TSP.cpp -o TSP -mcmodel=large
-
-*/
 #pragma warning(disable:4710)
 #pragma warning(disable:4711)
 #pragma warning(disable:4820)
