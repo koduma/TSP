@@ -1,5 +1,7 @@
 # TSP
 
+巡回セールスマン問題のソルバです。
+
 ## Compiler:g++
 ## Compile Command
 
