@@ -1,6 +1,3 @@
-/*
-g++ -O3 -std=c++11 -fopenmp bier127_TSP.cpp -o bier127_TSP
-*/
 #pragma warning(disable:4710)
 #pragma warning(disable:4711)
 #pragma warning(disable:4820)
