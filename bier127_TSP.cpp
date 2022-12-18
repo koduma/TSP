@@ -210,10 +210,13 @@ node solve(node travel) {
         }
         mp[ha]=true;
     }
-     
+	    
+    int choice=-1;
+	    
     if((int)elite.size()>0){        
     int r=rnd(0,(int)elite.size()-1);    
     travel=elite[r];
+    choice=r;
     //travel=no1;
     }
         
@@ -253,6 +256,9 @@ node solve(node travel) {
     if(nscore>=1.0){
     discover++;
     travel=news;
+    if(choice>=0){
+    elite[choice]=news;
+    }
     }
         
     if(MLEN>travel.score){
