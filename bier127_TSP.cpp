@@ -69,8 +69,6 @@ struct node {//どういう手かの構造体
 	}
 }fff[NODE_SIZE],ff[DIR*BEAM_WIDTH2],no1;
 
-unordered_map<ull,bool>mp;
-
 ull xor128() {//xorshift整数乱数
 	static unsigned long long rx = 123456789, ry = 362436069, rz = 521288629, rw = 88675123;
 	ull rt = (rx ^ (rx << 11));
@@ -87,7 +85,9 @@ double d_rnd() {
 	uniform_real_distribution<double> dice(0, 1.0);
 	return dice(mt);
 }
-node solve(node travel) {
+node solve(node travel,int count) {
+    
+    
 
 	vector<node>dque;
 
@@ -95,6 +95,8 @@ node solve(node travel) {
 	//emilib::HashMap<ull, bool> checkNodeList;
 	
 	int ttt=(travel.t)+1;
+    
+    /*
 
 	//2手目以降をビームサーチで探索
 	for (int i = (travel.t)+1; i <= CITY; i++) {
@@ -176,9 +178,26 @@ node solve(node travel) {
 				//}
 			}
 	}
+        
+    }
     
     SA:
+    */
     
+    unordered_map<ull,bool>mp;
+    
+    mp.clear();
+    
+    if(count==0){
+       
+    int history[CITY+1]={1,7,105,114,11,9,3,90,116,60,59,62,61,91,58,64,100,10,120,13,115,50,2,51,121,5,52,124,56,57,54,45,103,44,35,40,43,34,42,39,38,26,25,33,122,28,29,32,98,97,123,95,93,127,107,111,112,94,46,118,48,53,49,47,55,66,113,65,99,92,89,125,104,110,85,86,87,88,109,96,119,63,102,101,83,82,126,81,84,117,78,76,75,69,70,71,68,74,73,67,8,72,19,22,4,23,24,6,106,15,108,20,17,21,18,77,79,80,31,27,30,12,14,41,36,37,16,1};
+        travel.score=0;
+        for(int i=0;i<CITY;i++){
+            travel.route[i]=history[i]-1;
+            travel.score+=kyori[history[i]-1][history[i+1]-1];
+        }
+        travel.route[CITY]=0;
+    }    
     
     double start = omp_get_wtime();
     
@@ -188,12 +207,14 @@ node solve(node travel) {
     
     vector<node>elite;
     
+    int iter=0;
+    
     while(1){
     double elapsed = omp_get_wtime()-start;
     //if(elapsed>=10.0&&(int)elite.size()==0){break;}
-    if(elapsed>=100.0){break;}
+    if(elapsed>=300.0){break;}
     
-    if(5.0*(double)counter<=elapsed){cout<<5.0*(double)counter<<"s/"<<"100s"<<endl;counter++;cout<<"score="<<no1.score<<endl;}
+    if(5.0*(double)counter<=elapsed){cout<<5.0*(double)counter<<"s/"<<"300s"<<endl;counter++;cout<<"score="<<no1.score<<endl;}
         
     ull ha=0ll;
     
@@ -207,8 +228,8 @@ node solve(node travel) {
         if((int)elite.size()%10==0){
         cout<<"elite_size="<<(int)elite.size()<<endl;
         }
+        mp[ha]=true;    
         }
-        mp[ha]=true;
     }
 	    
     int choice=-1;
@@ -253,23 +274,23 @@ node solve(node travel) {
         
     int drnd=d_rnd();
         
-    if(nscore>=1.0){
+    if(news.score<old.score || abs(old.score-news.score)<=100){   
     discover++;
     travel=news;
     if(choice>=0){
     elite[choice]=news;
     }
-    }
-        
+    }   
     if(MLEN>travel.score){
     printf("score=%d\n",travel.score);
     MLEN=travel.score;
     no1=travel;
     }
-        
+    iter++;
+    if(iter%10000000==0){cout<<"iter="<<iter<<endl;}
     }
 	
-return travel;
+return no1;
 }
 void check_travel(node ans){
 	
@@ -312,6 +333,7 @@ int main(){
 	int n;
 	fscanf(fp,"%d %lf %lf",&n,&u[i][0],&u[i][1]);
 	}
+    
 	
 	for(i=0;i<CITY;i++){
 	for(j=0;j<CITY;j++){
@@ -325,6 +347,7 @@ int main(){
 	zoblish_field[i][j]=xor128();
 	}
 	}
+    
 	
 	node travel,ans;
 
@@ -336,9 +359,12 @@ int main(){
 		travel.visited[i]=false;
 	}
 	travel.visited[0]=true;
-
-	solve(travel);
+	
+	for(i=0;i<100;i++){
+	ans=solve(travel,i);
 	check_travel(no1);
+	travel=ans;
+	}
 	
 	cin>>i;
 	cin>>j;
