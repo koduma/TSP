@@ -43,8 +43,6 @@ typedef unsigned long long ull;
 
 ull zoblish_field[CITY][CITY];
 
-
-
 struct node {//どういう手かの構造体
 	char route[CITY+1];//スワイプ移動座標
 	int pos;
@@ -167,7 +165,6 @@ node solve(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) {
     iter++;
     if(iter%1000000==0){break;}
     }
-	
 return no1;
 }
 void check_travel(node ans,double checksum[CITY][CITY]){
@@ -240,8 +237,8 @@ int main(){
 		travel.visited[i]=false;
 	}
 	travel.visited[0]=true;
-    
-     int history[CITY+1];
+	
+	int history[CITY+1];
         history[0]=1;
         history[CITY]=1;
         for(int i=1;i<=CITY-1;i++){history[i]=i+1;}
@@ -250,38 +247,34 @@ int main(){
             travel.route[i]=history[i]-1;
             travel.score+=kyori[history[i]-1][history[i+1]-1];
         }
-        travel.route[CITY]=0;    
-    
-    vector<node>dque;
-    
-    for(int i=0;i<TH;i++){
-    dque.push_back(travel);
-    }    
-    
-    for (int ii = 0; ii < 100; ii++) {
-    int ks=(int)dque.size();
+        travel.route[CITY]=0;
+	
+	vector<node>dque;
+	for(int i=0;i<TH;i++){
+	dque.push_back(travel);
+	}
+	
+	for (int ii = 0; ii < 100; ii++) {
+	int ks=(int)dque.size();
 #pragma omp parallel for
-    for(i=0;i<ks;i++){
-    node cand=dque[i];
+	for(i=0;i<ks;i++){
+	node cand=dque[i];
 	sim[i]=solve(cand,kyori,checksum);
 	}
-    
-    int d=INF;
-    int index=0;    
-    dque.clear();    
-    for (int i = 0; i < TH;i++) {
-    if(d>sim[i].score){d=sim[i].score;index=i;}
-    dque.push_back(sim[i]);    
-    }
-     
-    check_travel(sim[index],checksum);    
-        
-    }
+	int d=INF;
+	int index=0;
+	dque.clear();
+	for (int i = 0; i < TH;i++) {
+	if(d>sim[i].score){d=sim[i].score;index=i;}
+	dque.push_back(sim[i]);
+	}
+	check_travel(sim[index],checksum);    
+        }
     
 	
 	cin>>i;
 	cin>>j;
 	cin>>k;
-
-  return 0;
+	
+	return 0;
 }
