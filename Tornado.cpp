@@ -199,9 +199,9 @@ void check_travel(node ans,double checksum[CITY][CITY]){
 }
 
 int main(){
-    
-    int kyori[CITY][CITY];
-    double checksum[CITY][CITY];
+	
+	int kyori[CITY][CITY];
+	double checksum[CITY][CITY];
 	
 	FILE *fp=fopen("bier127.txt","r");
 	
