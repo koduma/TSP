@@ -10,6 +10,7 @@
 |  Any | TSP.cpp | kyori.txt |g++ -O3 -std=c++11 -fopenmp TSP.cpp -o TSP  |
 |  Any | bier127_TSP.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp bier127_TSP.cpp -o bier127_TSP |
 |  Any | Tornado.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp Tornado.cpp -o Tornado |
+|  Any | TornadoII.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp TornadoII.cpp -o TornadoII |
 
 ## kyori.txt
 
