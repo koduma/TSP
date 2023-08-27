@@ -207,46 +207,32 @@ return no1;
 
 node sub(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]){
 	
-	node ans;  
-    
-    vector<node>dque;
-    
-    for(int i=0;i<TH;i++){
-    dque.push_back(travel);
-    }
-    
-    node ret;
-    
-    for (int ii = 0; ii < TURN; ii++) {
-    int ks=(int)dque.size();
+	
+	node ans;
+	
+	vector<node>dque;
+	
+	for(int i=0;i<TH;i++){
+	dque.push_back(travel);
+	}
+	node ret;
+	for (int ii = 0; ii < TURN; ii++) {
+	int ks=(int)dque.size();
 #pragma omp parallel for
     for(int i=0;i<ks;i++){
-    node cand=dque[i];
-	sim[i]=solve(cand,kyori,checksum);
+	    node cand=dque[i];
+	    sim[i]=solve(cand,kyori,checksum);
 	}
-       
-    dque.clear();    
-    for (int i = 0; i < TH;i++) {
-    dque.push_back(sim[i]);    
-    } 
-        
-    }
-    
-    int d=INF;
-    int index=0;
-    
-    for(int i=0;i<TH;i++){
-    
-    if(d>sim[i].score){d=sim[i].score;index=i;}
-        
-    }
-    
-    ret=sim[index];
-    
-    //check_travel(ret,checksum);
-    
-
-  return ret;
+	dque.clear();
+	for (int i = 0; i < TH;i++) {dque.push_back(sim[i]);} 
+	}
+	
+	int d=INF;
+	int index=0;
+	for(int i=0;i<TH;i++){if(d>sim[i].score){d=sim[i].score;index=i;}}
+	ret=sim[index];
+	//check_travel(ret,checksum);
+	return ret;
 }
 
 node change_travel(node n,double checksum[CITY][CITY],int kyori[CITY][CITY]){
@@ -310,7 +296,7 @@ node BEAM_SEARCH(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) 
 					cand.pos=j;
 					cand.t=i;
 					cand.visited[j]=true;
-                    cand=change_travel(cand,checksum,kyori);
+					cand=change_travel(cand,checksum,kyori);
 					node bbb=sub(cand,kyori,checksum);
 					cand.score2=bbb.score;
 					ff[(CITY * k) + j] = cand;
@@ -323,7 +309,7 @@ node BEAM_SEARCH(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) 
 			}
 		}
 		}
-        printf("depth=%d/%d\n",i,CITY);
+		printf("depth=%d/%d\n",i,CITY);
 		dque.clear();
 		vector<pair<int,int> >vec;
 		int ks2 = 0;
@@ -348,7 +334,7 @@ node BEAM_SEARCH(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) 
 		for (int j = 0; push_node < BEAM_WIDTH && j<ks2 ;j++) {
 			int v=vec[j].second;
 			node temp = ff[v];
-            if(push_node==0){cout<<"now="<<(temp.score)<<",predict="<<(temp.score2)<<endl;}
+			if(push_node==0){cout<<"now="<<(temp.score)<<",predict="<<(temp.score2)<<endl;}
 			if (i==CITY) {
 				return temp;
 			}
@@ -361,9 +347,9 @@ node BEAM_SEARCH(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) 
 }
 
 int main(){
-    
-    int kyori[CITY][CITY];
-    double checksum[CITY][CITY];
+	
+	int kyori[CITY][CITY];
+	double checksum[CITY][CITY];
 	
 	FILE *fp=fopen("bier127.txt","r");
 	
@@ -387,12 +373,9 @@ int main(){
 	zoblish_field[i][j]=xor128();
 	}
 	}
-    
-    
-    
-    node travel;
-    
-    travel.route[0]=0;
+	
+	node travel;
+	travel.route[0]=0;
 	travel.pos=0;
 	travel.t=0;
 	travel.score=0;
@@ -400,22 +383,17 @@ int main(){
 		travel.visited[i]=false;
 	}
 	travel.visited[0]=true;
-    
-    int history[CITY+1];
-    history[0]=1;
-    history[CITY]=1;
-    for(i=1;i<=CITY-1;i++){history[i]=i+1;}
-    travel.score=0;
-    for(i=0;i<CITY;i++){
-    travel.route[i]=history[i]-1;
-    }
-    travel.route[CITY]=0;
-    travel.score2=0;
-    
-    check_travel(BEAM_SEARCH(travel,kyori,checksum),checksum);
-
-
-
-return 0;
+	
+	int history[CITY+1];
+	history[0]=1;
+	history[CITY]=1;
+	for(i=1;i<=CITY-1;i++){history[i]=i+1;}
+	travel.score=0;
+	for(i=0;i<CITY;i++){travel.route[i]=history[i]-1;}
+	travel.route[CITY]=0;
+	travel.score2=0;
+	check_travel(BEAM_SEARCH(travel,kyori,checksum),checksum);
+	
+	return 0;
 
 }
