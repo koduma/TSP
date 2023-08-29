@@ -393,6 +393,10 @@ int main(){
 	travel.route[CITY]=0;
 	travel.score2=0;
 	check_travel(BEAM_SEARCH(travel,kyori,checksum),checksum);
+
+	cin>>i;
+	cin>>j;
+	cin>>k;
 	
 	return 0;
 
