@@ -268,20 +268,20 @@ node BEAM_SEARCH2(node travel) {
 }
 
 int main(){
-
-  FILE *fp=fopen("kyori.txt","r");
-
-  int i,j,k;
-
-  for(i=0;i<CITY;i++){
-    for(j=0;j<CITY;j++){
-      fscanf(fp,"%d",&kyori[i][j]);
-    }
-  }
-
+	
+	FILE *fp=fopen("kyori.txt","r");
+	
+	int i,j,k;
+	
+	for(i=0;i<CITY;i++){
+		for(j=0;j<CITY;j++){
+			fscanf(fp,"%d",&kyori[i][j]);
+		}
+	}
+	
 	for(i=0;i<CITY+1;i++){
 		for(j=0;j<CITY;j++){
-			zoblish_field[i][j]=xor128();
+		zoblish_field[i][j]=xor128();
 		}
 	}
 
@@ -334,11 +334,10 @@ int main(){
 	ull hash;//盤面のハッシュ値
 	bool visited[CITY]={0};
 	*/
-
-
-  cin>>i;
-  cin>>j;
-  cin>>k;
+	
+	cin>>i;
+	cin>>j;
+	cin>>k;
 
   return 0;
 }
