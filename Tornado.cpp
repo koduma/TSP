@@ -241,32 +241,32 @@ int main(){
 	int history[CITY+1];
         history[0]=1;
         history[CITY]=1;
-        for(int i=1;i<=CITY-1;i++){history[i]=i+1;}
+        for(i=1;i<=CITY-1;i++){history[i]=i+1;}
         travel.score=0;
-        for(int i=0;i<CITY;i++){
+        for(i=0;i<CITY;i++){
             travel.route[i]=history[i]-1;
             travel.score+=kyori[history[i]-1][history[i+1]-1];
         }
         travel.route[CITY]=0;
 	
 	vector<node>dque;
-	for(int i=0;i<TH;i++){
+	for(int x=0;x<TH;x++){
 	dque.push_back(travel);
 	}
 	
 	for (int ii = 0; ii < 100; ii++) {
 	int ks=(int)dque.size();
 #pragma omp parallel for
-	for(i=0;i<ks;i++){
-	node cand=dque[i];
-	sim[i]=solve(cand,kyori,checksum);
+	for(int x=0;x<ks;x++){
+	node cand=dque[x];
+	sim[x]=solve(cand,kyori,checksum);
 	}
 	int d=INF;
 	int index=0;
 	dque.clear();
-	for (int i = 0; i < TH;i++) {
-	if(d>sim[i].score){d=sim[i].score;index=i;}
-	dque.push_back(sim[i]);
+	for (int x = 0; x < TH;x++) {
+	if(d>sim[x].score){d=sim[x].score;index=x;}
+	dque.push_back(sim[x]);
 	}
 	check_travel(sim[index],checksum);    
         }
