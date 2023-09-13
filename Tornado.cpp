@@ -150,8 +150,8 @@ node solve(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) {
         
     int drnd=d_rnd();
         
-    //if(news.score<old.score || abs(old.score-news.score)<=100){ 
-    if(news.score<old.score){    
+    if(news.score<old.score || abs(old.score-news.score)<=1){ 
+    //if(news.score<old.score){    
     discover++;
     travel=news;
     if(choice>=0){
