@@ -267,14 +267,12 @@ void sub(int kyori[CITY][CITY],double checksum[CITY][CITY]){
 }
 
 int main(){
-    
-  int i,j,k;
-    
-  sub(XXX,YYY);
-
-  cin>>i;
-  cin>>j;
+	
+	int i,j,k;
+	sub(XXX,YYY);
+	cin>>i;
+	cin>>j;
 	cin>>k;
-  
-  return 0;
+	
+	return 0;
 }
