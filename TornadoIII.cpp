@@ -238,14 +238,7 @@ void sub(int kyori[CITY][CITY],double checksum[CITY][CITY]){
         for(i=1;i<=CITY-1;i++){history[i]=i+1;}
 	
 	vector<node>dque;
-	for(int x=0;x<TH;x++){
-    for (i = 0; i < 100; i++) {
-        int r1 = rnd(1,CITY-1);
-        int r2 = rnd(1,CITY-1);
-        int tmp = history[r2];
-        history[r2] = history[r1];
-        history[r1] = tmp;
-    }    
+	for(int x=0;x<TH;x++){   
         travel.score=0;
         for(i=0;i<CITY;i++){
             travel.route[i]=history[i]-1;
