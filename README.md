@@ -27,4 +27,4 @@
 ## pr2392.txt
 
 ## TARGET:378032
-## BestScore:
+## BestScore:378062
