@@ -12,6 +12,7 @@
 |  Any | Tornado.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp Tornado.cpp -o Tornado |
 |  Any | TornadoII.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp TornadoII.cpp -o TornadoII |
 |  Any | TornadoIII.cpp | pr2392.txt |g++ -O3 -std=c++11 -fopenmp TornadoIII.cpp -o TornadoIII |
+|  Any | TornadoIV.cpp | bier127.txt |g++ -O3 -std=c++11 -fopenmp TornadoIV.cpp -o TornadoIV |
 
 ## kyori.txt
 
