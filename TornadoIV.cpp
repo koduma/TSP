@@ -35,7 +35,7 @@ using namespace std;
 
 #define DIR 127
 #define CITY 127
-#define TH 10
+#define TH 1
     
 typedef unsigned long long ull;
 
@@ -163,7 +163,7 @@ node solve(node travel,int kyori[CITY][CITY],double checksum[CITY][CITY]) {
     no1=travel;
     }
     iter++;
-    if(iter%100000==0){break;}
+    if(iter%10000000==0){break;}
     }
 return no1;
 }
@@ -257,8 +257,8 @@ node nn=solve(news,kyori,checksum);
     }
     iter++;
     if(iter%200==0){break;}
-
-//printf("iter=%d,ok=%d,news.score=%d,MLEN=%d\n",iter,discover,nn.score,MLEN);
+	    
+printf("iter=%d,ok=%d,news.score=%d,MLEN=%d\n",iter,discover,nn.score,MLEN);
 
     }
 return no1;
@@ -352,7 +352,7 @@ int main(){
 	
 	for (int ii = 0; ii < 100; ii++) {
 	int ks=(int)dque.size();
-#pragma omp parallel for
+//#pragma omp parallel for
 	for(int x=0;x<ks;x++){
 	node cand=dque[x];
 	sim[x]=solve2(cand,kyori,checksum);
